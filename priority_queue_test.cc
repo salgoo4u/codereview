@@ -7,50 +7,52 @@
 
 
 TEST(PriorityQueueTest,Trivial){
-	templatePriorityQueue<int> expTarget;
+templatePriorityQueue<int> expTarget;
 
-	//Test 1 - Initalize
-	ASSERT_TRUE(expTarget.empty()); // empty test
+  int array_size = 6;
+  int pop_test_count = 3;
+  int test_data[] = {1, 4, 2, 3, 8, 5};
 
-	//Test 2 - Push Datas and Top size
-	expTarget.push(1);
-	expTarget.push(4);
-	expTarget.push(2);
-	expTarget.push(3);
-	expTarget.push(8);
-	expTarget.push(5);
-	
-	ASSERT_EQ(expTarget.size(),6); // Pushed 6 elements
-	ASSERT_EQ(expTarget.top(),8);  // The highest pushed value is 8
-	ASSERT_FALSE(expTarget.empty()); // it must not empty
+  //Test 1 - Initalize
+  ASSERT_TRUE(expTarget.empty()); // empty test
 
-	//Test 3 - pop test
+  //Test 2 - Push Datas and Top size
+  for (int i = 0; i < array_size; i++)
+  {
+    expTarget.push(test_data[i]);
+  }
 
-	expTarget.pop();
-	expTarget.pop();
-	expTarget.pop();
-	
-	ASSERT_EQ(expTarget.top(),3);
-	ASSERT_EQ(expTarget.size(),3);
-	ASSERT_FALSE(expTarget.empty());
+  ASSERT_EQ(expTarget.size(),array_size); // Pushed 6 elements
+  ASSERT_EQ(expTarget.top(),8);  // The highest pushed value is 8
+  ASSERT_FALSE(expTarget.empty()); // it must not empty
 
-	expTarget.pop();
-	expTarget.pop();
-	expTarget.pop();
+  //Test 3 - pop test
+  for (int i = 0; i < pop_test_count; i++)
+  {
+    expTarget.pop();
+  }
 	
-	ASSERT_TRUE(expTarget.empty());
-	
-	/* Fail Example - If you activate this code, Test will be fail *
+  ASSERT_EQ(expTarget.top(),3);
+  ASSERT_EQ(expTarget.size(),array_size-pop_test_count);
+  ASSERT_FALSE(expTarget.empty());
 
-	expTarget.pop();
+  for (int i = 0; i < array_size-pop_test_count; i++)
+  {
+    expTarget.pop();
+  }
 	
-	EXPECT_TRUE(expTarget.empty()); // non-Fatal Failure - not terminate this test case when result of empty method is false.
-	ASSERT_EQ(expTarget.size(),0);
-        /**/
+  ASSERT_TRUE(expTarget.empty());
 	
+  /* Fail Example - If you activate this code, Test will be fail
+
+  expTarget.pop();
+	
+  EXPECT_TRUE(expTarget.empty()); // non-Fatal Failure - not terminate this test case when result of empty method is false.
+  ASSERT_EQ(expTarget.size(),0);
+  */
 }
 
 int main(int argc, char **argv) {
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+  testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }
